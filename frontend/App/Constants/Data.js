@@ -1,0 +1,111 @@
+const DATA = [
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "12",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "13",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "14",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "15",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "16",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "17",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "18",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "19",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+    {
+        "amount": 5000,
+        "category": "Household",
+        "currency": "INR",
+        "description": "Maid Salary",
+        "subCategory": "Maid",
+        "timestamp": null,
+        "transactionId": "10",
+        "transactionType": "Expenditure",
+        "userId": "shringa",
+        "description": "hi this is my first expensedsflkslllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllllsldkf  sfskdfsldkflkmsl dfmsdkfsdfsdofosdsmlkmdslkmslkdflksflkslfsaflkgaaglgagkgaklagggggggggggggggggdlkgjkllkglgkkkkkk sdklslfklsfklslkflksj"
+    },
+];
+export default DATA;
