@@ -16,6 +16,7 @@ import { GetCategoryMap } from '../Objects/utils';
 import { CategorySheetContext } from '../Contexts/CategoryContext';
 import { useContext } from 'react';
 import { Portal } from 'react-native-paper';
+import { FilterSheetContext, FilterSheetProvider } from '../Contexts/FilterContext';
 
 
 
@@ -35,8 +36,9 @@ function ExpenseListScreen() {
     const [ open, setOpen ] = useState(false);
     //console.log(dispatch)
     //const [modalProp, setModalProp] = useState({visible:false, expenseId: null});
+    const {state} = useContext( FilterSheetContext);
    
-    const transactionData = DATA.map( item => new Transaction(item) );
+    const transactionData = state.transactionsData.map( item => new Transaction(item) );
     return (
         <SafeAreaView style={styles.container}>
             <ModalContext.Provider value={{modalDispatch:dispatch}}>

@@ -14,6 +14,8 @@ export class Transaction{
         description : "",
     } 
     ){
+        //const date = new Date();
+        //console.log( date );
         TransactionProps = this.EnrichTransactionProps( TransactionProps );
         Object.entries( TransactionProps ).forEach(([key,value]) => {
             this[ key ] = value;
@@ -26,6 +28,7 @@ export class Transaction{
             currency,
             category,
             transactionId,
+            userId,
         } = props;
 
         if( !timestamp )
@@ -34,6 +37,10 @@ export class Transaction{
         if( !currency )
             props.currency = "INR";
 
+        if( !userId )
+            props.userId = "shringa";
+
+
         if( !transactionId )
             props.transactionId = this.GenerateTransactionId( props );
 
@@ -41,12 +48,21 @@ export class Transaction{
     }
 
     GenerateTransactionId = ( props ) => {
+        //console.log( currentTime );
         const delimiter = "_";
+        const random = new Date().getTime();
+
+        // Use the timestamp to generate a random number
+        const randomNum = Math.floor(Math.random() * random);
+        console.log( "randomNUmber", randomNum );
+        
         const key = [ 
             "transaction",
             props.userId,
-            props.timestamp
+            randomNum,
         ].join( delimiter );
+
+        return( key );
     }
 
     // GetTransactionCategory = ( subCategory ) => {

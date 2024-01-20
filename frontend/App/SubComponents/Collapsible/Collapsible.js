@@ -14,7 +14,7 @@ const BaseCollapsible = ( props ) => {
                 pressed && styles.pressedButton,
                 selectedSubcategory && selectedSubcategory.label === subcategory.label && styles.selectedButton,
             ]}
-            onPress={() => handleSubCategoryChange(category, subcategory.label)}
+            onPress={() => handleSubCategoryChange(category.category, subcategory.label)}
         >
         <View style={styles.iconContainer}>
             <Icon name={subcategory.icon} size={16} color="black" />

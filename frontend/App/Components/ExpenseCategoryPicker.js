@@ -10,7 +10,7 @@ import { ScrollView } from "react-native-gesture-handler";
 export const CategoryPicker = (props) => {
     const { subCategory, defaultCategoryMap } = props;
     const {categorySheetRef, setCategoryModalVisible, isCategoryModalVisible } = useContext( CategorySheetContext);
-    console.log( "category Seet", categorySheetRef );
+    //console.log( "category Seet", categorySheetRef );
     return(
         <>
         <Button

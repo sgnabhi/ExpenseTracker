@@ -38,29 +38,38 @@ export const TransactionProvider = ( { children } ) => {
 
 export const TransactionAddFormContext = createContext();
 
-const initialState = {
+export const initialState = {
     formData: new Transaction( { 
         transactionType : 'Outflow',
         amount : '0',
         subCategory: '',
         category : '',
-        description : ""
+        description : "",
+        transactionId : "Initial",
     } ),
 };
 
-const storeFormData = async ( state ) => {
+const storeFormData = async ( state, dispatch ) => {
     try {
+        console.log( state );
         if( state == initialState )
         {
             console.log( "Initial State... not storing")
             return;
         };
         console.log( "Started Storing....\n" );
-        let date = new Date();
+        let date = state.formData.timestamp;
         const parameters = new AsycTransactionParameters( { date : date, startDate : date, userId : "shringa" } );
-        console.log( state.formData );
         await TransactionStorer.set( parameters, state.formData );
+
+        console.log( "stored State : ", state);
         console.log( "Stored the values in the form");
+        // dispatch( {
+        //     type : "SET_DEFAULT",
+        //     payload : {
+        //         initialState : initialState,
+        //     }
+        // });
     } catch (error) {
         console.error('Error storing form data:', error);
     }
@@ -69,9 +78,9 @@ export const TransactionAddFormProvider = ( { children } ) => {
     const [ state, dispatch ] = useReducer( TransactionAddFormReducer, initialState );
     
     useEffect(() => {
-        storeFormData( state );
+        storeFormData( state, dispatch );
     }, [state.formData]);
-    
+    //console.log(dispatch);
     return( 
         <TransactionAddFormContext.Provider value={{ state, dispatch }}>
             {children}

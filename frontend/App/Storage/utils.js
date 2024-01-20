@@ -19,14 +19,14 @@ export function StringDateArray(
     startDate = null,
     format = "yyyy-MM-dd ZZZZ",
 ){
-    console.log( "Hi I'm in date func");
+    //console.log( "Hi I'm in date func");
     endDate = DateTime.fromJSDate(endDate);
     if( !startDate )
         startDate = endDate
     else
         startDate = DateTime.fromJSDate(startDate);
-    console.log( startDate );
-    console.log( endDate);
+    //console.log( startDate );
+    //console.log( endDate);
     const dateArray = [];
     let currentDate = endDate;
 

@@ -67,7 +67,7 @@ export const FilterSheetProvider = ( props ) => {
         },
         [ state.filterData ]
     );
-    console.log( state );
+    //console.log( state );
     return(
         <FilterSheetContext.Provider value={{state:state, dispatch:dispatch}}>
             {children}

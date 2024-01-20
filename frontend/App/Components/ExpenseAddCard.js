@@ -17,15 +17,20 @@ import { CategoryCollapsible } from '../SubComponents/Collapsible/Collapsible';
 import { GetCategoryMap } from '../Objects/utils';
 import { CategorySheetContext } from '../Contexts/CategoryContext';
 import { CategoryPicker } from './ExpenseCategoryPicker';
+import ModalContext from '../Contexts/ModalContext';
+import ACTIONS from '../Constants/Actions';
+import { TransactionDatePicker } from '../SubComponents/Forms/DatePicker';
+import { initialState } from '../Contexts/TransactionContext';
 
 function ExpenseAddCard(props) {
-    const {category,transactionType} = props.transaction;
-    const component1 = () => <Text>Expenditure</Text>;
-    const component2 = () => <Text>Income</Text>;
-    const buttons = [{ element: component1 }, { element: component2 }];
-    const selectedIndex = 1;
+    // const {category,transactionType} = props.transaction;
+    // const component1 = () => <Text>Expenditure</Text>;
+    // const component2 = () => <Text>Income</Text>;
+    // const buttons = [{ element: component1 }, { element: component2 }];
+    // const selectedIndex = 1;
     const { state, dispatch } = useContext(TransactionAddFormContext);
     const { formik } = useContext( TransactionFormikContext );
+    const {modalDispatch} = useContext(ModalContext);
     const CategoryMap = GetCategoryMap();
          
     const { 
@@ -34,7 +39,6 @@ function ExpenseAddCard(props) {
         setFieldValue,
         values,
     } = formik;
-
     return (
         
         <KeyboardAvoidingView
@@ -69,6 +73,11 @@ function ExpenseAddCard(props) {
                 amount = {values.amount}
                 onChangeText = { handleChange('amount') }
             />
+            <Text>Select Date</Text>
+            <TransactionDatePicker
+                selectedDate = {values.timestamp}
+                onDateChange = {(event, date) => setFieldValue('timestamp', date)}
+            />
             <Text>Select a Sub Category</Text>
             <CategoryPicker 
                 subCategory = {values.subCategory}  
@@ -84,12 +93,31 @@ function ExpenseAddCard(props) {
             <Button
                 title="Submit"
                 onPress={() => {
-                    dispatch( {
-                        type: "SET_FORM_DATA",
-                        payload: {
-                            formData : new Transaction( values )
-                        }
-                    })
+                    const multi = async () => {
+                        await dispatch( {
+                            type: "SET_FORM_DATA",
+                            payload: {
+                                formData : new Transaction( {...values, transactionId : "" } )
+                            }
+                        });
+                        Object.entries(initialState.formData).forEach( 
+                            async ([ key, value ] ) => await setFieldValue(key, value)
+                        );
+                        await modalDispatch(
+                            {
+                                type: ACTIONS.ExpenseModal.Toggle,
+                                payload : {
+                                    visible : false,
+                                    transaction : new Transaction(),
+                                    newExpense : false,
+                                }
+                            }
+                        );
+
+                    }
+
+                    multi();
+                    
                 }}
             />
             </View>

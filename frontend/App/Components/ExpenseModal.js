@@ -10,7 +10,7 @@ import { Transaction } from '../Objects/Transaction';
 import ExpenseViewCard from './ExpenseViewCard';
 import ExpenseEditCard from './ExpenseEditCard';
 import ExpenseAddCard from './ExpenseAddCard';
-import { TransactionAddFormProvider } from '../Contexts/TransactionContext';
+import { TransactionAddFormContext, TransactionAddFormProvider, TransactionFormikContext } from '../Contexts/TransactionContext';
 import { CategorySheetProvider } from '../Contexts/CategoryContext';
 
 const Tab1Screen = () => (
@@ -28,6 +28,8 @@ const Tab2Screen = () => (
 function ExpenseModal(props) {
     const { visible, transaction, newExpense } = props;
     const {modalDispatch} = useContext(ModalContext);
+    const {formik} = useContext(TransactionFormikContext);
+    const {values} = formik;
     const [index,setIndex] = useState(0);
     return (
         <View style={styles.centeredView}>
@@ -37,7 +39,7 @@ function ExpenseModal(props) {
                 visible={visible}
                 style={{flex:1, width: 400}}
                 onRequestClose={() => {
-                    Alert.alert('Modal has been closed.');
+                    //Alert.alert('Modal has been closed.');
                     modalDispatch({
                       type: Actions.ExpenseModal.Toggle,
                       payload: {
@@ -66,10 +68,10 @@ function ExpenseModal(props) {
                         </Tab>
   
                         <TabView value={0} >
-                          <TabView.Item style={{ width: '100%' }}>
+                          <TabView.Item style={{ width: '100%' }}>  
                             <TransactionAddFormProvider>
-                              <ExpenseAddCard transaction={transaction}/>
-                            </TransactionAddFormProvider>
+                              <ExpenseAddCard />
+                            </TransactionAddFormProvider>                          
                           </TabView.Item>
                         </TabView>
                         </>)

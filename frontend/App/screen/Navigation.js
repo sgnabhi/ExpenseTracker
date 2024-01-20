@@ -36,7 +36,7 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigation() {
     //const {bottomSheetRef} = useContext(FilterButtonContext);
     const bottomSheetRef = useRef(null);
-    console.log(bottomSheetRef);
+    //console.log(bottomSheetRef);
     return (
         <NavigationContainer>
         
@@ -67,7 +67,7 @@ export default function AppNavigation() {
                 options={{
                     tabBarLabel: 'Expense List',
                     headerRight: () => {
-                        console.log(bottomSheetRef);
+                        //console.log(bottomSheetRef);
                         return(
                       <Button title= "Filter" onPress={() => 
                             {bottomSheetRef.current?.expand()}} style={{ marginRight: 16 }}/>
@@ -76,11 +76,9 @@ export default function AppNavigation() {
                   }}
             />
           </Tab.Navigator>
-          <FilterSheetProvider>
             <ExpenseBottomSheet
               bottomSheetRef = {bottomSheetRef}
             />
-          </FilterSheetProvider>
           
         
         </NavigationContainer>

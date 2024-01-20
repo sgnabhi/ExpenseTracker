@@ -9,7 +9,7 @@ export class AsycTransactionParameters{
     constructor( 
         {
             userId = null,
-            expenseId = null,
+            transactionId = null,
             startDate = null,
             date = null,
             minAmount = null,
@@ -23,7 +23,7 @@ export class AsycTransactionParameters{
     )
     {
         this.userId = userId;
-        this.expenseId = expenseId;
+        this.transactionId = transactionId;
         this.startDate = startDate;
         this.date = date;
         this.minAmount = minAmount;
@@ -48,7 +48,7 @@ export class AsyncTransactionStore{
             throw( "Error : Please pass in correct parameters" );
         const dates = StringDateArray( parameters.date, parameters.startDate );
         const keys = dates.map( date => [ this.keyPrefix, parameters.userId, date ].join(this.delimiter) );
-        console.log( keys );
+        //console.log( keys );
         return( keys );
     }
 
@@ -58,12 +58,12 @@ export class AsyncTransactionStore{
     }
 
     filter( parameters, values ){
-        const { expenseId, minAmount, maxAmount, category, subCategory } = parameters;       
+        const { transactionId, minAmount, maxAmount, category, subCategory } = parameters;       
         
         let finalValues = []
         values.map( value => {
             let flag = true
-            && ( expenseId ? value.expenseId == expenseId : 1 )
+            && ( transactionId ? value.transactionId == transctionId : 1 )
             && ( category ? category.includes( value.category ) : 1 )
             && ( subCategory ? subCategory.includes( value.subCategory ) : 1 )
             && ( minAmount ? value.amount >= minAmount : 1 )
@@ -89,7 +89,7 @@ export class AsyncTransactionStore{
         const Result = [];
         let {
             nextIndex,
-            expenseId,
+            transactionId,
             startDate,
             date,
             userId,
@@ -133,7 +133,7 @@ export class AsyncTransactionStore{
                     userId : userId,
                     startDate : startDate,
                     date : date,
-                    expenseId : expenseId,
+                    transactionId : transactionId,
                     category : category,
                     subCategory : subCategory,
                     minAmount : minAmount,
