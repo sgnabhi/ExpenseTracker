@@ -1,5 +1,9 @@
 import {DateTime} from "luxon";
 
+export function LuxonDateFromJS( date ){
+    return( DateTime.fromJSDate( date ) );
+}
+
 export function DateToString( 
     date,
     format = "yyyy-MM-dd ZZZZ",

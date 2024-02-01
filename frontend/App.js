@@ -1,9 +1,10 @@
 import { GestureHandlerRootView } from "react-native-gesture-handler";
 import { FilterButtonContextProvider, FilterSheetProvider } from "./App/Contexts/FilterContext";
 import AppNavigation from "./App/screen/Navigation";
-import { CategorySheetProvider } from "./App/Contexts/CategoryContext";
+import { CategorySheetProvider, FilterCategoryProvider } from "./App/Contexts/CategoryContext";
 import { TransactionFormikProvider } from "./App/Contexts/TransactionContext";
 import { TransactionAddFormProvider } from "./App/Contexts/TransactionContext";
+import { ExpenseOverTimeProvider } from "./App/Contexts/ChartContext";
 // import { SafeAreaView, View } from "react-native";
 // import { PortalProvider } from "@gorhom/portal";
 // import TestScreen from "./App/screen/TestScreen";
@@ -12,7 +13,9 @@ import { TransactionAddFormProvider } from "./App/Contexts/TransactionContext";
 function App(props) {
   return(
     <GestureHandlerRootView style={{flex:1}}>
+      <FilterCategoryProvider>
       <FilterSheetProvider>        
+      <ExpenseOverTimeProvider>
       <CategorySheetProvider>
       <TransactionFormikProvider>
       <FilterButtonContextProvider>
@@ -20,7 +23,9 @@ function App(props) {
       </FilterButtonContextProvider>
       </TransactionFormikProvider>
       </CategorySheetProvider>       
+      </ExpenseOverTimeProvider>
       </FilterSheetProvider>
+      </FilterCategoryProvider>
     </GestureHandlerRootView>
 
   );

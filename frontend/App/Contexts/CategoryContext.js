@@ -21,3 +21,25 @@ export const CategorySheetProvider = ( props ) => {
         </CategorySheetContext.Provider>
     )
 }
+
+
+export const FilterCategorySheetContext = createContext();
+
+export const FilterCategoryProvider = ( props ) => {
+    const { children } = props;
+    const categorySheetRef = useRef( null );
+    const [ modalVisible, setModalVisible ] = useState( false );
+    return(
+        <FilterCategorySheetContext.Provider value = 
+            {
+                { 
+                    categorySheetRef : categorySheetRef,
+                    modalVisible : modalVisible,
+                    setModalVisible : setModalVisible,
+                }
+            }
+        >
+            {children}
+        </FilterCategorySheetContext.Provider>
+    )
+}

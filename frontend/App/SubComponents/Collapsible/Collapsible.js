@@ -1,56 +1,72 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, Pressable, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 import Collapsible from 'react-native-collapsible';
 
-const BaseCollapsible = ( props ) => {
-    const { categoriesWithSubcategories, selectedSubcategory, handleSubCategoryChange } = props; 
-    const [expandedSections, setExpandedSections] = useState(categoriesWithSubcategories.map((_, index) => index));
-    const renderSubcategoryButton = (category, subcategory) => (
-        <Pressable
-            key={subcategory.label}
-            style={({ pressed }) => [
-                styles.subcategoryButton,
-                pressed && styles.pressedButton,
-                selectedSubcategory && selectedSubcategory.label === subcategory.label && styles.selectedButton,
-            ]}
-            onPress={() => handleSubCategoryChange(category.category, subcategory.label)}
-        >
-        <View style={styles.iconContainer}>
-            <Icon name={subcategory.icon} size={16} color="black" />
-        </View>
-        <Text style = {{fontSize:10}}>{subcategory.label}</Text>
-        </Pressable>
-    );
-
-    const renderHeader = (category, index) => (
-        <Pressable onPress={() => toggleSection(index)}>
-            <View style={[styles.categoryHeader, styles.activeCategoryHeader]}>
-                <Text style={styles.categoryTitle}>{category.category}</Text>
-            </View>
-        </Pressable>
-    );
-
-    const renderContent = (category, index) => (
-        <Collapsible collapsed={!expandedSections.includes(index)}>
-            <View style={styles.subcategoryContainer}>
-                {category.subcategories.map((subcategory) => renderSubcategoryButton(category, subcategory))}
-            </View>
-        </Collapsible>
-    );
-
-    const toggleSection = (index) => {
-        const updatedExpandedSections = [...expandedSections];
-        const sectionIndex = updatedExpandedSections.indexOf(index);
-
-        if (sectionIndex === -1) {
-            updatedExpandedSections.push(index);
-        } else {
-            updatedExpandedSections.splice(sectionIndex, 1);
-        }
-
-        setExpandedSections(updatedExpandedSections);
+const BaseCollapsible = (props) => {
+  console.log( 'BaseCollapsible');
+  
+  const { categoriesWithSubcategories, selectedCategoryMap, handleSubCategoryChange } = props;
+  console.log("selectedCategoryMap", selectedCategoryMap, "\n");
+  const selectedCategory = Object.keys( selectedCategoryMap);
+  const selectedSubCategory = Object.values( selectedCategoryMap).flat();
+  console.log("\nSelected Category", selectedCategory, "\n");
+  console.log("\nSelected SubCategory", selectedSubCategory, "\n");
+  const [expandedSections, setExpandedSections] = useState(categoriesWithSubcategories.map((_, index) => index));
+  
+  const renderSubcategoryButton = (category, subcategory) => {
+    //const [isPressed, setPressed] = useState(false);
+    const handlePress = () => {
+      //setPressed(newPressedValue);
+      handleSubCategoryChange(category.category, subcategory.label);
     };
+
+    return (
+      <Pressable
+        key={subcategory.label}
+        style={({ pressed }) => [
+          styles.subcategoryButton,
+          pressed && styles.pressedButton,
+          selectedCategory.includes( category.category ) && selectedSubCategory.includes( subcategory.label ) && styles.selectedButton,
+        ]}
+        onPress={handlePress}
+      >
+        <View style={styles.iconContainer}>
+          <Icon name={subcategory.icon} size={16} color="black" />
+        </View>
+        <Text style={{ fontSize: 10 }}>{subcategory.label}</Text>
+      </Pressable>
+    );
+  };
+
+  const renderHeader = (category, index) => (
+    <Pressable onPress={() => toggleSection(index)}>
+      <View style={[styles.categoryHeader, styles.activeCategoryHeader]}>
+        <Text style={styles.categoryTitle}>{category.category}</Text>
+      </View>
+    </Pressable>
+  );
+
+  const renderContent = (category, index) => (
+    <Collapsible collapsed={!expandedSections.includes(index)}>
+      <View style={styles.subcategoryContainer}>
+        {category.subcategories.map((subcategory) => renderSubcategoryButton(category, subcategory))}
+      </View>
+    </Collapsible>
+  );
+
+  const toggleSection = (index) => {
+    const updatedExpandedSections = [...expandedSections];
+    const sectionIndex = updatedExpandedSections.indexOf(index);
+
+    if (sectionIndex === -1) {
+      updatedExpandedSections.push(index);
+    } else {
+      updatedExpandedSections.splice(sectionIndex, 1);
+    }
+
+    setExpandedSections(updatedExpandedSections);
+  };
 
   return (
     <View style={styles.container}>
@@ -63,13 +79,12 @@ const BaseCollapsible = ( props ) => {
     </View>
   );
 };
-
 export const CategoryCollapsible = ( props ) => {
-    const { CategoryMap, selectedSubcategory, handleSubCategoryChange } = props;
+    const { CategoryMap, selectedCategoryMap, handleSubCategoryChange } = props;
     return(
         <BaseCollapsible
             categoriesWithSubcategories = {CategoryMap}
-            selectedSubcategory = {selectedSubcategory}
+            selectedCategoryMap = {selectedCategoryMap}
             handleSubCategoryChange = {handleSubCategoryChange}
         />
     );

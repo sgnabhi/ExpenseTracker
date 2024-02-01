@@ -20,7 +20,9 @@ export const FilterSheetContext = createContext();
 const initialState = {
     filterData : {
         startDate : new Date(),
-        endDate : new Date()
+        endDate : new Date(),
+        category : [],
+        subCategory : [],
     },
     transactionsData : []
 };

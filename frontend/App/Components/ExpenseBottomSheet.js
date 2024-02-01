@@ -2,15 +2,19 @@ import { GestureHandlerRootView } from "react-native-gesture-handler";
 
 import React, { useContext, useRef } from 'react';
 import { TransactionBottomSheet } from "../SubComponents/BottomSheet/BottomSheet";
-import { Button, Text, View } from "react-native";
+import { Button, Text, View, Pressable } from "react-native";
 import { TransactionDatePicker } from "../SubComponents/Forms/DatePicker";
 import { FilterSheetContext } from "../Contexts/FilterContext";
 import { useFormik } from "formik";
+import { ExpenseCategoryMultiPicker } from "./ExpenseCategoryPicker";
+import { FilterCategorySheetContext } from "../Contexts/CategoryContext";
+import { GetCategoryMap } from "../Objects/utils";
 
 function ExpenseBottomSheet(props) {
     const {bottomSheetRef} = props;
     const {state, dispatch } = useContext( FilterSheetContext );
-
+    const { categorySheetRef, modalVisible, setModalVisible } = useContext( FilterCategorySheetContext );
+    const defaultCategoryMap = GetCategoryMap();
     const formik = useFormik(
         {
             initialValues : state.filterData
@@ -23,6 +27,11 @@ function ExpenseBottomSheet(props) {
         setFieldValue,
         values,
     } = formik;
+
+    handleCategoryChange = (category, subCategory ) => {
+        setFieldValue( "category", category );
+        setFieldValue( "subCategory", subCategory );
+    }
 
     const openBottomSheet = () => {
         bottomSheetRef.current?.expand();
@@ -58,6 +67,20 @@ function ExpenseBottomSheet(props) {
                     <TransactionDatePicker 
                         selectedDate={values.endDate} 
                         onDateChange={(event, date) => {setFieldValue("endDate", date);}} 
+                    />
+                    <Pressable
+                        onPress = { () => {setModalVisible(true)} }
+                    >
+                        <Text>Select Category</Text>
+                    </Pressable>
+                    <Text> Selected Category : {values.category} </Text>
+                    <Text> Selected Sub Category : {values.subCategory} </Text>
+                    <ExpenseCategoryMultiPicker 
+                        defaultCategoryMap = {defaultCategoryMap}
+                        categorySheetRef = {categorySheetRef}
+                        isCategoryModalVisible = {modalVisible}
+                        setCategoryModalVisible = {setModalVisible}
+                        handleCategoryChange = {handleCategoryChange}
                     />
                     <Button title = "Close BS" onPress={ ()=> {onSubmit(values)} } />
                 </View>

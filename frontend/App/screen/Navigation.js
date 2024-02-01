@@ -14,6 +14,7 @@ import { useContext } from 'react';
 import { FilterButtonContext, FilterSheetProvider } from '../Contexts/FilterContext';
 import ExpenseBottomSheet from '../Components/ExpenseBottomSheet';
 import { useRef } from 'react';
+import { DashboardScreen } from './DashboardScreen';
 
 function HomeScreen() {
   return (
@@ -51,6 +52,8 @@ export default function AppNavigation() {
                     : 'ios-information-circle-outline';
                 } else if (route.name === 'Expense List') {
                     iconName = focused ? 'ios-list' : 'ios-list-outline';
+                } else if (route.name === 'Dashboard') {
+                    iconName = focused ? 'ios-list' : 'ios-list-outline';
                 }
 
                 // You can return any component that you like here!
@@ -66,6 +69,20 @@ export default function AppNavigation() {
                 component={ExpenseListScreen}
                 options={{
                     tabBarLabel: 'Expense List',
+                    headerRight: () => {
+                        //console.log(bottomSheetRef);
+                        return(
+                      <Button title= "Filter" onPress={() => 
+                            {bottomSheetRef.current?.expand()}} style={{ marginRight: 16 }}/>
+                        )
+                        },
+                  }}
+            />
+            <Tab.Screen 
+                name="Dashboard"
+                component={DashboardScreen}
+                options={{
+                    tabBarLabel: 'Dashboard',
                     headerRight: () => {
                         //console.log(bottomSheetRef);
                         return(
