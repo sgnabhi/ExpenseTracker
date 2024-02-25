@@ -4,7 +4,7 @@ import AppNavigation from "./App/screen/Navigation";
 import { CategorySheetProvider, FilterCategoryProvider } from "./App/Contexts/CategoryContext";
 import { TransactionFormikProvider } from "./App/Contexts/TransactionContext";
 import { TransactionAddFormProvider } from "./App/Contexts/TransactionContext";
-import { ExpenseOverTimeProvider } from "./App/Contexts/ChartContext";
+import { ExpenseOverCategoryProvider, ExpenseOverTimeProvider } from "./App/Contexts/ChartContext";
 // import { SafeAreaView, View } from "react-native";
 // import { PortalProvider } from "@gorhom/portal";
 // import TestScreen from "./App/screen/TestScreen";
@@ -16,6 +16,7 @@ function App(props) {
       <FilterCategoryProvider>
       <FilterSheetProvider>        
       <ExpenseOverTimeProvider>
+      <ExpenseOverCategoryProvider>
       <CategorySheetProvider>
       <TransactionFormikProvider>
       <FilterButtonContextProvider>
@@ -23,6 +24,7 @@ function App(props) {
       </FilterButtonContextProvider>
       </TransactionFormikProvider>
       </CategorySheetProvider>       
+      </ExpenseOverCategoryProvider>
       </ExpenseOverTimeProvider>
       </FilterSheetProvider>
       </FilterCategoryProvider>

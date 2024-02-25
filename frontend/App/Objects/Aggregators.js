@@ -22,7 +22,8 @@ export class TransactionTimeAggregator {
     this.aggregatedData = this.getProcessedAggregatedData();
   }
 
-  getDefaultDateFormat() {
+  getDefaultDateFormat() 
+  {
     switch (this.frequency) {
       case "D":
         return "yyyyLLLdd";
@@ -69,5 +70,33 @@ export class TransactionTimeAggregator {
   }
 };
 
-console.log( "sgn! hurray")
+export class TransactionCategoryAggregator {
+  constructor({ transactionsData = [], frequency = "", keyGenerator, valueGenerator } = {}) {
+    this.transactionsData = transactionsData;
+    this.valueGenerator = valueGenerator || this.defaultValueGenerator;
+    this.aggregatedData = this.getProcessedAggregatedData();
+  }
+
+
+  getProcessedAggregatedData() {
+    return this.transactionsData.reduce((aggregatedData, transaction) => {
+      aggregatedData = this.valueGenerator(transaction, aggregatedData);
+      return aggregatedData;
+    }, {});
+  }
+
+  defaultValueGenerator( transaction, aggregatedData ) {
+    const amount = parseFloat(transaction.amount);
+    const attributes = [ transaction.category ];
+    attributes.forEach( (attribute) => {
+      if( attribute in aggregatedData)
+          aggregatedData[ attribute ] += amount;
+      else
+        aggregatedData[ attribute ] = amount;
+    });
+
+    return aggregatedData;
+  }
+};
+
 

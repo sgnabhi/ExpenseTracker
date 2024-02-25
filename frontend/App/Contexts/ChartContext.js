@@ -1,6 +1,6 @@
 import { createContext, useContext } from "react";
 import { FilterSheetContext } from "./FilterContext";
-import { TransactionTimeAggregator } from "../Objects/Aggregators";
+import { TransactionCategoryAggregator, TransactionTimeAggregator } from "../Objects/Aggregators";
 
 export const ExpenseOverTimeContext = createContext();
 
@@ -21,9 +21,24 @@ export const ExpenseOverTimeProvider = ( props ) => {
             {children}
         </ExpenseOverTimeContext.Provider>
     )
-    
+}
 
+export const ExpenseOverCategoryContext = createContext();
 
+export const ExpenseOverCategoryProvider = ( props ) => {
+    const { children } = props;
+    const { state } = useContext( FilterSheetContext );
+    const { transactionsData } = state;
+    //console.log( "Transactions data : ", transactionsData);
+    const transactionAggregator = new TransactionCategoryAggregator( {
+        transactionsData : transactionsData
+    } );
 
+    const aggregatedTransactionData = transactionAggregator.aggregatedData;
 
+    return( 
+        <ExpenseOverCategoryContext.Provider value = {{aggregatedTransactionData: aggregatedTransactionData}}>
+            {children}
+        </ExpenseOverCategoryContext.Provider>
+    )
 }

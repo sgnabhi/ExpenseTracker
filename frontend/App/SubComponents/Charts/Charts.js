@@ -14,7 +14,7 @@ export const Chart = ( props ) => {
             } );
         }
     );
-  console.log( data );
+  //console.log( data );
   const layout = {
     title: title,
     xaxis: xAxis,

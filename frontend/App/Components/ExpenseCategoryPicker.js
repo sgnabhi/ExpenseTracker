@@ -105,7 +105,7 @@ export const ExpenseCategoryBottomSheet = ( props ) => {
     };
 
     const selectedCategoryMap = {[values.category] : [ values.subCategory]};
-    console.log("1Selected Category Map", selectedCategoryMap, "\n");
+    //console.log("1Selected Category Map", selectedCategoryMap, "\n");
     return(
         <Modal 
             visible = {isCategoryModalVisible}

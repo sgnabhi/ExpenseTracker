@@ -54,7 +54,7 @@ export class Transaction{
 
         // Use the timestamp to generate a random number
         const randomNum = Math.floor(Math.random() * random);
-        console.log( "randomNUmber", randomNum );
+        //console.log( "randomNUmber", randomNum );
         
         const key = [ 
             "transaction",

@@ -3,15 +3,18 @@ import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 export const ChartCard = ( props ) => {
   const { children } = props;
-  console.log( children );
+  //console.log( children );
 
   return (
-    <View style={styles.container}>
-      <View style={styles.card}>
+    // <View style={styles.container}>
+      // {/* <View style={styles.card}> */}
+      <View style = {{flex : 1, backgroundColor: '#fff',}}>
         <Text style={styles.cardTitle}>Your Chart Title</Text>
-        <View style={styles.chartContainer}>{children}</View>
+        <Text> Hi How are you?</Text>
+        {children}
       </View>
-    </View>
+      // </View>
+    // </View>
   );
 };
 
@@ -43,7 +46,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: '#ddd',
     borderRadius: 8,
-    overflow: 'hidden',
+    //overflow: 'hidden',
     width: '100%',
     flex : 1,
   },
