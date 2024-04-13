@@ -4,20 +4,20 @@ import { TransactionCategoryAggregator, TransactionTimeAggregator } from "../Obj
 
 export const ExpenseOverTimeContext = createContext();
 
-export const ExpenseOverTimeProvider = ( props ) => {
+export const ExpenseOverTimeProvider = (props) => {
     const { children } = props;
-    const { state } = useContext( FilterSheetContext );
+    const { state } = useContext(FilterSheetContext);
     const { transactionsData } = state;
 
-    const transactionAggregator = new TransactionTimeAggregator( {
-        transactionsData : transactionsData,
-        frequency : 'D',
-    } );
+    const transactionAggregator = new TransactionTimeAggregator({
+        transactionsData: transactionsData,
+        frequency: 'D',
+    });
 
     const aggregatedTransactionData = transactionAggregator.aggregatedData;
 
-    return( 
-        <ExpenseOverTimeContext.Provider value = {{aggregatedTransactionData: aggregatedTransactionData}}>
+    return (
+        <ExpenseOverTimeContext.Provider value={{ aggregatedTransactionData: aggregatedTransactionData }}>
             {children}
         </ExpenseOverTimeContext.Provider>
     )
@@ -25,20 +25,21 @@ export const ExpenseOverTimeProvider = ( props ) => {
 
 export const ExpenseOverCategoryContext = createContext();
 
-export const ExpenseOverCategoryProvider = ( props ) => {
+export const ExpenseOverCategoryProvider = (props) => {
     const { children } = props;
-    const { state } = useContext( FilterSheetContext );
+    const { state } = useContext(FilterSheetContext);
     const { transactionsData } = state;
-    //console.log( "Transactions data : ", transactionsData);
-    const transactionAggregator = new TransactionCategoryAggregator( {
-        transactionsData : transactionsData
-    } );
 
-    const aggregatedTransactionData = transactionAggregator.aggregatedData;
+    const transactionAggregator = new TransactionCategoryAggregator({
+        transactionsData: transactionsData
+    });
 
-    return( 
-        <ExpenseOverCategoryContext.Provider value = {{aggregatedTransactionData: aggregatedTransactionData}}>
+    const aggregatedCategoryData = transactionAggregator.aggregatedData;
+
+    return (
+        <ExpenseOverCategoryContext.Provider value={{ aggregatedCategoryData: aggregatedCategoryData }}>
             {children}
         </ExpenseOverCategoryContext.Provider>
     )
 }
+

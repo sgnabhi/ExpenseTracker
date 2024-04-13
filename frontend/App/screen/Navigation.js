@@ -53,7 +53,7 @@ export default function AppNavigation() {
                 } else if (route.name === 'Expense List') {
                     iconName = focused ? 'ios-list' : 'ios-list-outline';
                 } else if (route.name === 'Dashboard') {
-                    iconName = focused ? 'ios-list' : 'ios-list-outline';
+                    iconName = focused ? 'stats-chart' : 'stats-chart-outline';
                 }
 
                 // You can return any component that you like here!

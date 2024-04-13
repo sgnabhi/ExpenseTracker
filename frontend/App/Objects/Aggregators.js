@@ -99,4 +99,27 @@ export class TransactionCategoryAggregator {
   }
 };
 
+// export class LastTwoMonthsAggregator extends TransactionTimeAggregator {
+//   constructor({ transactionsData = [], frequency = "", dateFormatProvider, keyGenerator, valueGenerator } = {}) {
+//     super({ transactionsData, frequency, dateFormatProvider, keyGenerator, valueGenerator });
+//   }
+
+//   getLastTwoMonthsData() {
+//     const twoMonthsAgo = LuxonDateFromJS(new Date()).minus({ months: 2 });
+//     const filteredTransactions = this.transactionsData.filter(transaction => {
+//       const transactionDate = LuxonDateFromJS(new Date(transaction.timestamp));
+//       return transactionDate >= twoMonthsAgo;
+//     });
+
+//     return new TransactionTimeAggregator({
+//       transactionsData: filteredTransactions,
+//       frequency: this.frequency,
+//       dateFormatProvider: this.dateFormatProvider,
+//       keyGenerator: this.keyGenerator,
+//       valueGenerator: this.valueGenerator
+//     }).getProcessedAggregatedData();
+//   }
+// }
+
+
 
