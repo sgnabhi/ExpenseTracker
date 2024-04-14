@@ -5,6 +5,7 @@ import { CategorySheetProvider, FilterCategoryProvider } from "./App/Contexts/Ca
 import { TransactionFormikProvider } from "./App/Contexts/TransactionContext";
 import { TransactionAddFormProvider } from "./App/Contexts/TransactionContext";
 import { ExpenseOverCategoryProvider, ExpenseOverTimeProvider } from "./App/Contexts/ChartContext";
+import { LoginProvider } from "./App/Contexts/LoginContext";
 // import { SafeAreaView, View } from "react-native";
 // import { PortalProvider } from "@gorhom/portal";
 // import TestScreen from "./App/screen/TestScreen";
@@ -13,6 +14,7 @@ import { ExpenseOverCategoryProvider, ExpenseOverTimeProvider } from "./App/Cont
 function App(props) {
   return(
     <GestureHandlerRootView style={{flex:1}}>
+      <LoginProvider>
       <FilterCategoryProvider>
       <FilterSheetProvider>        
       <ExpenseOverTimeProvider>
@@ -28,6 +30,7 @@ function App(props) {
       </ExpenseOverTimeProvider>
       </FilterSheetProvider>
       </FilterCategoryProvider>
+      </LoginProvider>
     </GestureHandlerRootView>
 
   );

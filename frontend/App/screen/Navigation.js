@@ -13,6 +13,7 @@ import Ionicons from 'react-native-vector-icons/Ionicons';
 import { useContext } from 'react';
 import { FilterButtonContext, FilterSheetProvider } from '../Contexts/FilterContext';
 import ExpenseBottomSheet from '../Components/ExpenseBottomSheet';
+import { LoginContext } from '../Contexts/LoginContext';
 import { useRef } from 'react';
 import { DashboardScreen } from './DashboardScreen';
 
@@ -37,15 +38,17 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigation() {
     //const {bottomSheetRef} = useContext(FilterButtonContext);
     const bottomSheetRef = useRef(null);
+    const {isLoggedIn} = useContext(LoginContext);
     //console.log(bottomSheetRef);
     return (
         <NavigationContainer>
         
-        <Tab.Navigator
+        { isLoggedIn ?
+          (
+          <Tab.Navigator
             screenOptions={({ route }) => ({
             tabBarIcon: ({ focused, color, size }) => {
                 let iconName;
-
                 if (route.name === 'Login') {
                 iconName = focused
                     ? 'ios-information-circle'
@@ -62,8 +65,7 @@ export default function AppNavigation() {
             tabBarActiveTintColor: 'tomato',
             tabBarInactiveTintColor: 'gray',
             })}
-        >
-            <Tab.Screen name="Login" component={LoginScreen} />
+          >
             <Tab.Screen 
                 name="Expense List"
                 component={ExpenseListScreen}
@@ -93,6 +95,33 @@ export default function AppNavigation() {
                   }}
             />
           </Tab.Navigator>
+          )
+          : (
+            <Tab.Navigator
+            screenOptions={({ route }) => ({
+            tabBarIcon: ({ focused, color, size }) => {
+                let iconName;
+
+                if (route.name === 'Login') {
+                iconName = focused
+                    ? 'ios-information-circle'
+                    : 'ios-information-circle-outline';
+                }
+                // You can return any component that you like here!
+                return <Ionicons name={iconName} size={size} color={color} />;
+            },
+            tabBarActiveTintColor: 'tomato',
+            tabBarInactiveTintColor: 'gray',
+            })}
+        >
+            <Tab.Screen name="Login" component={LoginScreen} />
+            
+          </Tab.Navigator>
+
+          )
+        
+        }
+        
             <ExpenseBottomSheet
               bottomSheetRef = {bottomSheetRef}
             />

@@ -1,18 +1,29 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Alert } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Formik } from 'formik';
+import { LoginContext } from '../Contexts/LoginContext';
+import { set } from 'lodash';
+import { useContext } from 'react';
 
 function LoginScreen(props) {
-    const handleLogin = (values) => {
+    //console.log( props );
+    const {setLoggedIn} = useContext( LoginContext );
+    const handleLogin = async (values) => {
         // Handle login logic using the form values
         console.log('Form values:', values);
-    };
-
-    const handleCreateAccount = () => {
-        // Logic to navigate to the screen for creating a new account
-        // You can implement navigation logic here, such as using React Navigation
-        console.log('Create new account');
+        if( values.enteredotp == values.otp )
+        {
+            Alert.alert( "Login Successful");
+            await setLoggedIn(true);
+            await props.navigation.navigate( "Dashboard" );            
+        }            
+        else
+        {
+            Alert.alert( "Login Unsuccessful. Try Again!!");
+            props.navigation.navigate( "Login" )
+        }
+            
     };
 
     return (
@@ -22,35 +33,58 @@ function LoginScreen(props) {
                 <Text style={styles.welcomeText}>Welcome back!</Text>
             </View>
             <Formik
-                initialValues={{ username: '', password: '' }}
+                initialValues={{ username: '', otp: '', enteredotp : '', sendotp : false }}
                 onSubmit={handleLogin}
             >
-                {({ handleChange, handleBlur, handleSubmit, values }) => (
+                {({ handleChange, handleBlur, handleSubmit,setFieldValue, values }) => (
                     <View style={styles.form}>
                         <Input
-                            placeholder="Username"
+                            placeholder="Email Address"
                             value={values.username}
                             onChangeText={handleChange('username')}
                             onBlur={handleBlur('username')}
                             autoCapitalize="none"
                             inputStyle={styles.input}
                         />
-                        <Input
-                            placeholder="Password"
-                            value={values.password}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            secureTextEntry
-                            autoCapitalize="none"
-                            inputStyle={styles.input}
-                        />
                         <Button
-                            title="Login"
-                            onPress={handleSubmit}
+                            title="Send OTP"
+                            onPress={ async (e) => {
+                                try {
+                                    const response = await fetch(`http://192.168.0.108:3000/send-otp?email=${values.username}`);
+                                    const data = await response.json();
+                                    console.log('Response:', data);
+                                    await setFieldValue( 'otp', data.otp )
+                                    Alert.alert('OTP Sent Successfully!');
+                                } catch (error) {
+                                    console.error('Error sending OTP:', error);
+                                    Alert.alert('Failed to send OTP. Please try again.');
+                                }
+                                await setFieldValue('sendotp', true);
+                            }}
                             buttonStyle={styles.loginButton}
                             titleStyle={styles.loginButtonText}
-                        />
-                        <Text style={styles.registerText}>Don't have an account yet? <Text style={styles.registerLink} onPress={handleCreateAccount}>Register Here</Text></Text>
+                        />                        
+                        {
+                            values.sendotp &&
+                            (<View>
+                                <Input
+                                    placeholder="OTP"
+                                    value={values.enteredotp}
+                                    onChangeText={handleChange('enteredotp')}
+                                    onBlur={handleBlur('enteredotp')}
+                                    secureTextEntry
+                                    autoCapitalize="none"
+                                    inputStyle={styles.input}
+                                />
+                                <Button
+                                    title="Login"
+                                    onPress={handleSubmit}
+                                    buttonStyle={styles.loginButton}
+                                    titleStyle={styles.loginButtonText}
+                                />
+                            </View>)  
+                            
+                        }                   
                     </View>
                 )}
             </Formik>
