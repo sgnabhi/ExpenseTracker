@@ -4,14 +4,14 @@ import Icon from 'react-native-vector-icons/FontAwesome';
 import Collapsible from 'react-native-collapsible';
 
 const BaseCollapsible = (props) => {
-  console.log( 'BaseCollapsible');
+  //console.log( 'BaseCollapsible');
   
   const { categoriesWithSubcategories, selectedCategoryMap, handleSubCategoryChange } = props;
-  console.log("selectedCategoryMap", selectedCategoryMap, "\n");
+  //console.log("selectedCategoryMap", selectedCategoryMap, "\n");
   const selectedCategory = Object.keys( selectedCategoryMap);
   const selectedSubCategory = Object.values( selectedCategoryMap).flat();
-  console.log("\nSelected Category", selectedCategory, "\n");
-  console.log("\nSelected SubCategory", selectedSubCategory, "\n");
+  //console.log("\nSelected Category", selectedCategory, "\n");
+  //console.log("\nSelected SubCategory", selectedSubCategory, "\n");
   const [expandedSections, setExpandedSections] = useState(categoriesWithSubcategories.map((_, index) => index));
   
   const renderSubcategoryButton = (category, subcategory) => {
@@ -80,11 +80,12 @@ const BaseCollapsible = (props) => {
   );
 };
 export const CategoryCollapsible = ( props ) => {
-    const { CategoryMap, selectedCategoryMap, handleSubCategoryChange } = props;
+    const { CategoryMap, SelectedCategoryMap, handleSubCategoryChange } = props;
+    console.log( "myselectedCategoryMap", SelectedCategoryMap);
     return(
         <BaseCollapsible
             categoriesWithSubcategories = {CategoryMap}
-            selectedCategoryMap = {selectedCategoryMap}
+            selectedCategoryMap = {SelectedCategoryMap}
             handleSubCategoryChange = {handleSubCategoryChange}
         />
     );

@@ -22,7 +22,7 @@ const styles = StyleSheet.create({
     card: {
         backgroundColor: '#fff',
         borderRadius: 10,
-        padding: 15,
+        //padding: 15,
         marginBottom: 10, // Small gap between cards
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },

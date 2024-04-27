@@ -8,7 +8,7 @@ import { Picker } from '@react-native-picker/picker';
 import { Button, ButtonGroup, Icon, Input} from 'react-native-elements';
 import { SubCategoryPicker } from '../SubComponents/Forms/Picker';
 import { AmountForm, TransactionDescriptionForm } from '../SubComponents/Forms/Input';
-import { ButtonGroupForm, TransactionTypeForm } from '../SubComponents/Forms/Button';
+import { ButtonGroupForm, TransactionFrequencyTypeForm, TransactionTypeForm, TransactionFrequencyForm } from '../SubComponents/Forms/Button';
 import { TransactionAddFormContext, TransactionAddFormProvider, TransactionFormikContext } from '../Contexts/TransactionContext';
 import { AsycTransactionParameters, TransactionStorer } from '../Storage/TransactionStore';
 import { Transaction } from '../Objects/Transaction';
@@ -68,11 +68,27 @@ function ExpenseAddCard(props) {
                 onPress = { (value) => setFieldValue('transactionType', value)}
                 value = {values.transactionType}
             />
+            <TransactionFrequencyTypeForm
+                onPress = { (value) => setFieldValue('transactionFrequencyType', value)}
+                value = {values.transactionFrequencyType}
+            />
+            {
+                values.transactionFrequencyType == "Recurring" && (
+                <>
+                <Text>Frequency</Text>
+                <TransactionFrequencyForm
+                    onPress = { (value) => setFieldValue('transactionFrequency', value) }
+                    value = {values.transactionFrequency}
+                />
+                </>
+            )
+            }
             <Text>Enter amount</Text>
             <AmountForm 
                 amount = {values.amount}
                 onChangeText = { handleChange('amount') }
             />
+
             <Text>Select Date</Text>
             <TransactionDatePicker
                 selectedDate = {values.timestamp}

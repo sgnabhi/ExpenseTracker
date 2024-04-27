@@ -24,7 +24,7 @@ app.get('/', (req, res) => {
 // Endpoint to send OTP
 app.get('/send-otp', (req, res) => {
   let email = req.query.email;
-  email = "abhishekshringi.iitd@gmail.com";
+  email = "sehajv@gmail.com";
   if (!email) {
     return res.status(400).json({ error: 'Email address is required' });
   }

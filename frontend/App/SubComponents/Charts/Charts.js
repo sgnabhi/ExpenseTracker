@@ -17,7 +17,7 @@ export const Chart = (props) => {
     });
 
     const layout = {
-        title: title,
+        title: '',
         xaxis: xAxis,
         yaxis: yAxis,
         plot_bgcolor: '#f9f9f9', // Light grey background color
@@ -44,7 +44,7 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#ffffff', // White background color
         borderRadius: 10,
-        marginBottom: 20,
+        //marginBottom: 20,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -55,9 +55,13 @@ const styles = StyleSheet.create({
         elevation: 8,
     },
     plot: {
-        width: '100%',
-        height: 300,
+        width: '130%',
+        height: 10000,
         borderRadius: 10,
+        padding: -50, // Remove any padding
+        margin: -35, // Remove any margin
+        marginTop: -60,
+        marginLeft: -50,
     },
 });
 

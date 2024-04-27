@@ -4,6 +4,8 @@ import { ChartCard } from "../SubComponents/Cards/Cards";
 import { Chart } from "../SubComponents/Charts/Charts";
 import { FilterSheetContext } from "../Contexts/FilterContext";
 import { ExpenseOverTimeContext, ExpenseOverCategoryContext } from "../Contexts/ChartContext";
+import { ModuleTypeForm } from "../SubComponents/Forms/Button";
+import { Formik } from "formik";
 
 export const ExpenseDash = (props) => {
     const { state } = useContext(FilterSheetContext);
@@ -27,8 +29,8 @@ export const ExpenseDash = (props) => {
 
     // Calculate total expenditure, target expenditure, and percentage change
     const totalExpenditure = series2[0].y.reduce((acc, curr) => acc + curr, 0);
-    const targetExpenditure = 2000; // Example target expenditure, replace with actual target
-    const previousMonthExpenditure = 1500; // Example previous month's expenditure
+    const targetExpenditure = 4500; // Example target expenditure, replace with actual target
+    const previousMonthExpenditure = 4500; // Example previous month's expenditure
     const percentageChange = ((totalExpenditure - previousMonthExpenditure) / previousMonthExpenditure) * 100;
 
     // Styled Components
@@ -54,30 +56,63 @@ export const ExpenseDash = (props) => {
 
                 <View style={styles.metricsContainer}>
                     <Metric title="Total Expenditure" value={totalExpenditure} />
-                    <Metric title="Target Expenditure" value={targetExpenditure} />
+                    <Metric title="Last Month Expeneses" value={targetExpenditure} />
                     <Metric title="Percentage Change" value={percentageChange} />
                 </View>
 
                 <Text style={styles.trendsHeading}>Trends & Distributions</Text>
-
-                <ChartCard title="Expense Over Time">
-                    <Chart
-                        series={series}
-                        chartType={"line"}
-                        title={"Highest Expenditure on XXX Date"}
-                        xAxis={{ title: "Time" }}
-                        yAxis={{ title: "Expense" }}
-                    />
-                </ChartCard>
-                <ChartCard title="Expense Over Category">
-                    <Chart
-                        series={series2}
-                        chartType={"bar"}
-                        title={"Highest Expenditure in Leisure Category"}
-                        xAxis={{ title: "Category" }}
-                        yAxis={{ title: "Expense" }}
-                    />
-                </ChartCard>
+                <Formik initialValues={{ "moduleType" : "Over Category" }} >
+                    {({ handleChange, handleBlur, handleSubmit,setFieldValue, values }) => (
+                        <View style = {{flex : 1}}>
+                            <ModuleTypeForm
+                                onPress = { (value) => setFieldValue('moduleType', value)}
+                                value = {values.moduleType}
+                            />
+                            {
+                                values.moduleType == "Over Time" && (
+                                    <ChartCard title="Expense Over Time">
+                                        <Chart
+                                            series={series}
+                                            chartType={"line"}
+                                            //title={"Highest Expenditure on XXX Date"}
+                                            xAxis={{ 
+                                                title: { text : "Time", standoff : 1 },
+                                                titlefont: { size: 7 }, // Adjust the title font size
+                                                tickfont: { size: 6 }, // Adjust the tick labels font size
+                                            }}
+                                            yAxis={{ 
+                                                title: { text : "Expense", standoff : 1 },
+                                                titlefont: { size: 7 }, // Adjust the title font size                                               
+                                                tickfont: { size: 6 }, // Adjust the tick labels font size
+                                            }}
+                                        />
+                                    </ChartCard>
+                                )                                
+                            }
+                            {
+                                values.moduleType == "Over Category" && (
+                                    <ChartCard title="Expense Over Category">
+                                        <Chart
+                                            series={series2}
+                                            chartType={"bar"}
+                                           // title={"Highest Expenditure in Leisure Category"}
+                                           xAxis={{ 
+                                                title: { text : "Category", standoff : 1 },
+                                                titlefont: { size: 7 }, // Adjust the title font size
+                                                tickfont: { size: 6 }, // Adjust the tick labels font size
+                                            }}
+                                            yAxis={{ 
+                                                title: { text : "Expense", standoff : 1 },
+                                                titlefont: { size: 7 }, // Adjust the title font size                                               
+                                                tickfont: { size: 6 }, // Adjust the tick labels font size
+                                            }}
+                                        />
+                                    </ChartCard>
+                                )                                
+                            }                            
+                        </View>
+                    )}
+                </Formik>
             </View>
         </ScrollView>
     );

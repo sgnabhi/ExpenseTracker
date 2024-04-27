@@ -121,7 +121,7 @@ export const ExpenseCategoryBottomSheet = ( props ) => {
                 />
                 <CategoryCollapsible
                     CategoryMap = { CategoryMap }
-                    selectedCategoryMap = { selectedCategoryMap }
+                    SelectedCategoryMap = { selectedCategoryMap }
                     handleSubCategoryChange = {(category, subCategory ) => {
                         handleSubCategoryChange( category, subCategory );
                     }}
@@ -135,6 +135,7 @@ export const ExpenseCategoryBottomSheet = ( props ) => {
 
 export const ExpenseCategoryMultiPicker = ( props ) => {
     const { categorySheetRef, defaultCategoryMap, handleCategoryChange, isCategoryModalVisible, setCategoryModalVisible} = props;
+    //console.log( "Inside MultiPicker", defaultCategoryMap)
     return(
         <ExpenseCategoryPickerBase
             categorySheetRef = {categorySheetRef}
@@ -148,8 +149,12 @@ export const ExpenseCategoryMultiPicker = ( props ) => {
 
 export const ExpenseCategoryPickerBase = ( props ) => {    
     const {categorySheetRef, defaultCategoryMap, handleCategoryChange, isCategoryModalVisible, setCategoryModalVisible } = props;
-    const [ CatStruct, setCatStruct ] = useState( {} );
+    let defaultCatStruct = {};
+    //console.log("abhicategorymap",defaultCategoryMap)
+    //Object.entries( defaultCategoryMap ).forEach((k,v) => { defaultCatStruct[ k[1].category ] = k[1].subcategories.map( x => x.label) });
+    const [ CatStruct, setCatStruct ] = useState( defaultCatStruct );
     const [ CategoryMap, setCategoryMap ] = useState( defaultCategoryMap );
+    
     
       
 
@@ -212,7 +217,6 @@ export const ExpenseCategoryPickerBase = ( props ) => {
         setCategoryMap( findCategoryMap(query) )
         //handleSubCategoryChange( "", "" ); // Clear selected subcategory when the query changes
     };
-
     return(
         <Modal 
             visible = {isCategoryModalVisible}

@@ -41,6 +41,8 @@ export const TransactionAddFormContext = createContext();
 export const initialState = {
     formData: new Transaction( { 
         transactionType : 'Outflow',
+        transactionFrequencyType : "Non Recurring",
+        transactionFrequency : "Monthly",
         amount : '0',
         subCategory: '',
         category : '',

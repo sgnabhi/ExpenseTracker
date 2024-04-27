@@ -53,6 +53,7 @@ function ExpenseBottomSheet(props) {
         })
         closeBottomSheet();
     }
+    // console.log( "myCategoryMap", defaultCategoryMap);
     return (
             <TransactionBottomSheet
                 bottomSheetRef = {bottomSheetRef}                
@@ -82,7 +83,7 @@ function ExpenseBottomSheet(props) {
                         setCategoryModalVisible = {setModalVisible}
                         handleCategoryChange = {handleCategoryChange}
                     />
-                    <Button title = "Close BS" onPress={ ()=> {onSubmit(values)} } />
+                    <Button title = "Submit" onPress={ ()=> {onSubmit(values)} } />
                 </View>
             </TransactionBottomSheet>
     );

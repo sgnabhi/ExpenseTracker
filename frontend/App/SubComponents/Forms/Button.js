@@ -32,3 +32,60 @@ export const TransactionTypeForm = (props) => {
         />
     )
 }
+
+export const TransactionFrequencyTypeForm = (props) => {
+    const categories = [ "Non Recurring", "Recurring" ];
+    const buttons = categories.map( ( category ) => 
+        { return( { element:() => <Text>{category}</Text> } ) },
+        categories);
+    const { onPress, value } = props;
+    return(
+        <ButtonGroupForm
+            onPress = {(index) => { 
+                const category = categories[index];
+                onPress(category);
+            } }
+            selectedIndex = {categories.indexOf(value)}
+            containerStyle = {{ marginVertical: 10 }}
+            buttons = {buttons}
+        />
+    )
+}
+
+export const TransactionFrequencyForm = (props) => {
+    const categories = [ "Daily", "Monthly", "Yearly" ];
+    const buttons = categories.map( ( category ) => 
+        { return( { element:() => <Text>{category}</Text> } ) },
+        categories);
+    const { onPress, value } = props;
+    return(
+        <ButtonGroupForm
+            onPress = {(index) => { 
+                const category = categories[index];
+                onPress(category);
+            } }
+            selectedIndex = {categories.indexOf(value)}
+            containerStyle = {{ marginVertical: 10 }}
+            buttons = {buttons}
+        />
+    )
+}
+
+export const ModuleTypeForm = (props) => {
+    const categories = [ "Over Time", "Over Category" ];
+    const buttons = categories.map( ( category ) => 
+        { return( { element:() => <Text>{category}</Text> } ) },
+        categories);
+    const { onPress, value } = props;
+    return(
+        <ButtonGroupForm
+            onPress = {(index) => { 
+                const category = categories[index];
+                onPress(category);
+            } }
+            selectedIndex = {categories.indexOf(value)}
+            containerStyle = {{ marginVertical: 10 }}
+            buttons = {buttons}
+        />
+    )
+}

@@ -1,10 +1,13 @@
 import React from 'react';
-import { SafeAreaView, StyleSheet, Text, View, Alert } from 'react-native';
+import { SafeAreaView, StyleSheet, Text, View, Alert, Keyboard, TouchableWithoutFeedback } from 'react-native';
 import { Input, Button } from 'react-native-elements';
 import { Formik } from 'formik';
 import { LoginContext } from '../Contexts/LoginContext';
 import { set } from 'lodash';
 import { useContext } from 'react';
+import { Platform } from 'react-native';
+
+
 
 function LoginScreen(props) {
     //console.log( props );
@@ -25,13 +28,19 @@ function LoginScreen(props) {
         }
             
     };
+    const handleScreenTouch = () => {
+        Keyboard.dismiss(); // Dismiss the keyboard
+    };
 
     return (
+        
+        <TouchableWithoutFeedback onPress={handleScreenTouch}>
         <SafeAreaView style={styles.container}>
             <View style={styles.header}>
-                <Text style={styles.logo}>Personal ET</Text>
+                <Text style={styles.logo}>SpendSmart</Text>
                 <Text style={styles.welcomeText}>Welcome back!</Text>
             </View>
+            
             <Formik
                 initialValues={{ username: '', otp: '', enteredotp : '', sendotp : false }}
                 onSubmit={handleLogin}
@@ -70,6 +79,7 @@ function LoginScreen(props) {
                                 <Input
                                     placeholder="OTP"
                                     value={values.enteredotp}
+                                    keyboardType={Platform.OS === 'ios'? "number-pad":"numeric"}
                                     onChangeText={handleChange('enteredotp')}
                                     onBlur={handleBlur('enteredotp')}
                                     secureTextEntry
@@ -88,7 +98,9 @@ function LoginScreen(props) {
                     </View>
                 )}
             </Formik>
+            
         </SafeAreaView>
+        </TouchableWithoutFeedback>
     );
 }
 

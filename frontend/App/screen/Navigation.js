@@ -38,7 +38,7 @@ const Tab = createBottomTabNavigator();
 export default function AppNavigation() {
     //const {bottomSheetRef} = useContext(FilterButtonContext);
     const bottomSheetRef = useRef(null);
-    const {isLoggedIn} = useContext(LoginContext);
+    const {isLoggedIn, setLoggedIn} = useContext(LoginContext);
     //console.log(bottomSheetRef);
     return (
         <NavigationContainer>
@@ -78,6 +78,13 @@ export default function AppNavigation() {
                             {bottomSheetRef.current?.expand()}} style={{ marginRight: 16 }}/>
                         )
                         },
+                    headerLeft: () => {
+                      //console.log(bottomSheetRef);
+                      return(
+                    <Button title= "Log Out" onPress={() => 
+                          setLoggedIn(false)} style={{ marginRight: 16 }}/>
+                      )
+                    },
                   }}
             />
             <Tab.Screen 
@@ -92,6 +99,13 @@ export default function AppNavigation() {
                             {bottomSheetRef.current?.expand()}} style={{ marginRight: 16 }}/>
                         )
                         },
+                    headerLeft: () => {
+                      //console.log(bottomSheetRef);
+                      return(
+                        <Button title= "Log Out" onPress={() => 
+                          setLoggedIn(false)} style={{ marginRight: 16 }}/>
+                      )
+                    },
                   }}
             />
           </Tab.Navigator>
